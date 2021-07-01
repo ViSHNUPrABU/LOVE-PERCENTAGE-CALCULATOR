@@ -92,8 +92,12 @@ void percentage_calculator( int same_letter_count[] , int length_of_same_letter_
         length_of_same_letter_count = last_index + 1 ;
         for( int index = 0 ; index < length_of_same_letter_count ; index++ )         //This loop separates double digits into single digits
         {                                                                //ex:  5   7   8   9  -> 14  15  -> 1   4   1   5 -> 6  5 (65%)
-            last_index = length_of_same_letter_count - 1 ;
-             if( same_letter_count[index] > 9 )
+             last_index = length_of_same_letter_count - 1 ;
+
+             if( length_of_same_letter_count == 2 & same_letter_count[0] == 10 & same_letter_count[1] == 0 )
+                 break;
+
+             else if( same_letter_count[index] > 9 )
              {
                  quotient = same_letter_count[index] / 10 ;
                  remainder = same_letter_count[index] % 10 ;
@@ -118,6 +122,9 @@ void percentage_loader( int resulting_percentage )
 
         if( rolling_count >= 10 )
             printf("\b\b\b\b\b %d %%",rolling_count);
+
+        if( rolling_count == 100 )
+            printf("\b\b\b\b\b\b %d %%",rolling_count);
 
         if( rolling_count > resulting_percentage - 2 )
             delay(0.40);
@@ -197,8 +204,9 @@ int love_percentage_calculator()
 
     percentage_loader( resulting_percentage );
 
-
-    printf("       |\n\t%c--------------------------------------------------",200);
+    if( resulting_percentage != 100 )
+        printf(" ");
+    printf("      |\n\t%c--------------------------------------------------",200);
     for( int print = 1 ; print <= length_of_combined_name ; print++ )
         printf("-");
     printf("%c\n",188);
